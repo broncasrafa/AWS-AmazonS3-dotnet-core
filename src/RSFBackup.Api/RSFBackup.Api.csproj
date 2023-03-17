@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<RepositoryUrl>https://github.com/broncasrafa/AmazonSQS-getting-start-dotnet-core</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>aws;dotnetcore;dotnet;.netcore;.net7;sqs;messagequeue</PackageTags>
+		<NeutralLanguage>pt-BR</NeutralLanguage>
+		<Description>API for studies and development practices for sending messages to an SQS Queue with a .NET Core Web API</Description>
+		<Title>AmazonSQS.WebApi</Title>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<NoWarn>1701;1702;1591;1998</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<NoWarn>1701;1702;1591;1998</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.S3" Version="3.7.103.30" />
+		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.5" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RSFBackup.Core\RSFBackup.Core.csproj" />
+    <ProjectReference Include="..\RSFBackup.Infrastructure\RSFBackup.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
