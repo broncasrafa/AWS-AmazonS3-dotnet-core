@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using RSFBackup.Core.DTO.Files;
 
 namespace RSFBackup.Core.Interfaces.Repositories;
 
 public interface IFilesRepository
 {
+    Task<AddFileResponse> UploadFilesAsync(string bucketName, IFormFileCollection files);
 }
