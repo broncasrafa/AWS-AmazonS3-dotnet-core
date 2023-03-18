@@ -4,7 +4,7 @@ using RSFBackup.Core.Interfaces.Repositories;
 
 namespace RSFBackup.Api.Controllers
 {
-    [Route("api/buckets")]
+    [Route("api/bucket")]
     [ApiController]
     public class BucketController : ControllerBase
     {

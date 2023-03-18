@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSFBackup.Api", "RSFBackup.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSFBackup.Core", "RSFBackup.Core\RSFBackup.Core.csproj", "{8E61E99F-98AF-4DEE-8FBA-63A7FC3012D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSFBackup.Infrastructure", "RSFBackup.Infrastructure\RSFBackup.Infrastructure.csproj", "{2B61648C-805A-466B-A98A-0C06D2E393FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSFBackup.Infrastructure", "RSFBackup.Infrastructure\RSFBackup.Infrastructure.csproj", "{2B61648C-805A-466B-A98A-0C06D2E393FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9193EA1B-BE71-42C9-9F35-EBE8993B9AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSFBackup.Integration.Tests", "RSFBackup.Integration.Tests\RSFBackup.Integration.Tests.csproj", "{3AEC5ED5-4502-41A0-B9CB-7054ACE07185}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{2B61648C-805A-466B-A98A-0C06D2E393FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B61648C-805A-466B-A98A-0C06D2E393FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B61648C-805A-466B-A98A-0C06D2E393FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEC5ED5-4502-41A0-B9CB-7054ACE07185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEC5ED5-4502-41A0-B9CB-7054ACE07185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEC5ED5-4502-41A0-B9CB-7054ACE07185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEC5ED5-4502-41A0-B9CB-7054ACE07185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AEC5ED5-4502-41A0-B9CB-7054ACE07185} = {9193EA1B-BE71-42C9-9F35-EBE8993B9AFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7FED42A-610A-4F82-8A4F-FA3392996CB8}
