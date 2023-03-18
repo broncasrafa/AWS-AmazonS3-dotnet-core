@@ -95,4 +95,39 @@ public class FilesController : ControllerBase
         return Ok(new { message = "File deleted successfully" });
         // return NoContent();
     }
+
+
+    /// <summary>
+    /// Realiza o upload de um objeto JSON para o S3 bucket especificado
+    /// </summary>
+    /// <param name="bucketName">o nome do S3 bucket</param>
+    /// <param name="request">objeto JSON stringifyed</param>
+    [HttpPost("{bucketName}/json-object")]
+    public async Task<IActionResult> AddJsonObjectAsync(string bucketName, AddJsonObjectRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(bucketName))
+            return BadRequest(new { message = "S3 Bucket name is required" });
+
+        var response = await _filesRepository.AddJsonObjectAsync(bucketName, request);
+
+        return Ok(new { message = "Object created successfully", id = response });
+    }
+
+
+    /// <summary>
+    /// Obtem o objeto JSON pelo nome do arquivo no S3 bucket especificado
+    /// </summary>
+    /// <param name="bucketName">o nome do S3 bucket</param>
+    /// <param name="filename">nome do arquivo JSON armazenado no S3 bucket</param>
+    [HttpGet("{bucketName}/json-object")]
+    public async Task<ActionResult<GetJsonObjectResponse>> GetJsonObjectAsync(string bucketName, [FromQuery] string filename)
+    {
+        if (string.IsNullOrWhiteSpace(bucketName))
+            return BadRequest(new { message = "S3 Bucket name is required" });
+        if (string.IsNullOrWhiteSpace(filename))
+            return BadRequest(new { message = "File name is required" });
+
+        var response = await _filesRepository.GetJsonObjectAsync(bucketName, filename);
+        return Ok(response);
+    }
 }

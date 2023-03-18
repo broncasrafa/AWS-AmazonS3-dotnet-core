@@ -1,9 +1,11 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
-using Amazon.S3.Transfer;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using RSFBackup.Core.DTO.Files;
 using RSFBackup.Core.Interfaces.Repositories;
+using Amazon.S3;
+using Amazon.S3.Model;
+using Amazon.S3.Transfer;
+using Newtonsoft.Json;
+
 
 namespace RSFBackup.Infrastructure.Repositories;
 
@@ -82,5 +84,32 @@ public class FilesRepository : IFilesRepository
         var response = await _amazonS3Client.DeleteObjectsAsync(request);
 
         return new DeleteFileResponse(response.DeletedObjects.Count);
+    }
+
+    public async Task<string> AddJsonObjectAsync(string bucketName, AddJsonObjectRequest request)
+    {
+        DateTime createdOnUtc = DateTime.UtcNow;
+        
+        string s3Key = $"{createdOnUtc:yyyy}/{createdOnUtc:MM}/{createdOnUtc:dd}/{request.Id}";
+        
+        var putObjectRequest = new PutObjectRequest
+        {
+            BucketName=bucketName,
+            Key = s3Key,
+            ContentBody = JsonConvert.SerializeObject(request)
+        };
+
+        await _amazonS3Client.PutObjectAsync(putObjectRequest);
+
+        return s3Key;
+    }
+
+    public async Task<GetJsonObjectResponse> GetJsonObjectAsync(string bucketName, string filename)
+    {
+        GetObjectRequest request = new GetObjectRequest { BucketName = bucketName, Key = filename };
+        GetObjectResponse response = await _amazonS3Client.GetObjectAsync(request);
+        using var sr = new StreamReader(response.ResponseStream);
+        string content = sr.ReadToEnd();
+        return JsonConvert.DeserializeObject<GetJsonObjectResponse>(content);
     }
 }

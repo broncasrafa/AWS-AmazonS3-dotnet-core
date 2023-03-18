@@ -9,4 +9,6 @@ public interface IFilesRepository
     Task<IEnumerable<ListFilesResponse>> ListFilesAsync(string bucketName);
     Task DownloadFileAsync(string bucketName, string filename);
     Task<DeleteFileResponse> DeleteFileAsync(string bucketName, string filename);
+    Task<string> AddJsonObjectAsync(string bucketName, AddJsonObjectRequest request);
+    Task<GetJsonObjectResponse> GetJsonObjectAsync(string bucketName, string filename);
 }
