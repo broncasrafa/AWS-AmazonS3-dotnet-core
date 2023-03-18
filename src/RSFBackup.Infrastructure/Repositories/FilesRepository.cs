@@ -73,4 +73,14 @@ public class FilesRepository : IFilesRepository
         using var transferUtility = new TransferUtility(_amazonS3Client);
         await transferUtility.DownloadAsync(request);
     }
+
+    public async Task<DeleteFileResponse> DeleteFileAsync(string bucketName, string filename)
+    {
+        var request = new DeleteObjectsRequest { BucketName = bucketName };
+        request.AddKey(filename);
+        
+        var response = await _amazonS3Client.DeleteObjectsAsync(request);
+
+        return new DeleteFileResponse(response.DeletedObjects.Count);
+    }
 }

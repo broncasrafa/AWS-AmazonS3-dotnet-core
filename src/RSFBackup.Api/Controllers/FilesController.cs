@@ -33,6 +33,7 @@ public class FilesController : ControllerBase
         return Ok(response);
     }
 
+
     /// <summary>
     /// Realiza o upload de arquivos para o S3 bucket especificado
     /// </summary>
@@ -54,6 +55,7 @@ public class FilesController : ControllerBase
         return Ok(response);
     }
 
+
     /// <summary>
     /// Realiza o download do arquivo especificado no S3 bucket especificado
     /// </summary>
@@ -73,6 +75,7 @@ public class FilesController : ControllerBase
         return Ok(new { message = "Downloaded successfully" });
     }
 
+
     /// <summary>
     /// Realiza a remoção do arquivo especificado no S3 bucket especificado
     /// </summary>
@@ -87,8 +90,9 @@ public class FilesController : ControllerBase
         if (string.IsNullOrWhiteSpace(filename))
             return BadRequest(new { message = "File name is required" });
 
-        await _filesRepository.DeleteFileAsync(bucketName, filename);
+        var response = await _filesRepository.DeleteFileAsync(bucketName, filename);
 
         return Ok(new { message = "File deleted successfully" });
+        // return NoContent();
     }
 }

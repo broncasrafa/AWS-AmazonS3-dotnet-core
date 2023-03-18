@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RSFBackup.Core.DTO.Files;
+﻿namespace RSFBackup.Core.DTO.Files;
 
 public class DeleteFileResponse
 {
+    public int DeletedObjectsCount { get; private set; }
+
+    public DeleteFileResponse(int deletedObjectsCount)
+    {
+        DeletedObjectsCount = deletedObjectsCount;
+    }
 }
