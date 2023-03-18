@@ -18,6 +18,23 @@ public class FilesController : ControllerBase
 
 
     /// <summary>
+    /// Obter a lista de arquivos do S3 bucket especificado
+    /// </summary>
+    /// <param name="bucketName">o nome do S3 bucket</param>
+    [HttpGet("{bucketName}")]
+    public async Task<ActionResult<IEnumerable<ListFilesResponse>>> ListFilesFromBucketAsync(string bucketName)
+    {
+        if (string.IsNullOrWhiteSpace(bucketName))
+            return BadRequest(new { message = "S3 Bucket name is required" });
+
+        var response = await _filesRepository.ListFilesAsync(bucketName);
+        if (response == null || response.Count() == 0)
+            return NotFound(new { message = $"Files from S3 Bucket {bucketName} not found" });
+
+        return Ok(response);
+    }
+
+    /// <summary>
     /// realiza o upload de arquivos para o S3 bucket especificado
     /// </summary>
     /// <param name="bucketName">o nome do S3 bucket</param>

@@ -17,6 +17,17 @@ public class FilesRepository : IFilesRepository
     }
 
 
+    public async Task<IEnumerable<ListFilesResponse>> ListFilesAsync(string bucketName)
+    {
+        var response = await _amazonS3Client.ListObjectsAsync(bucketName);
+        return response.S3Objects.Select(obj => new ListFilesResponse(
+            obj.BucketName,
+            obj.Key,
+            obj.Owner.DisplayName,
+            obj.Size, 
+            obj.LastModified));
+    }
+
     public async Task<AddFileResponse> UploadFilesAsync(string bucketName, IFormFileCollection files)
     {
         var preSignedUrls = new List<PreSignedUrlFileResponse>();
