@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RSFBackup.Core.DTO.Files;
 using RSFBackup.Core.Interfaces.Repositories;
 
@@ -18,7 +17,7 @@ public class FilesController : ControllerBase
 
 
     /// <summary>
-    /// Obter a lista de arquivos do S3 bucket especificado
+    /// Obtem a lista de arquivos do S3 bucket especificado
     /// </summary>
     /// <param name="bucketName">o nome do S3 bucket</param>
     [HttpGet("{bucketName}")]
@@ -35,7 +34,7 @@ public class FilesController : ControllerBase
     }
 
     /// <summary>
-    /// realiza o upload de arquivos para o S3 bucket especificado
+    /// Realiza o upload de arquivos para o S3 bucket especificado
     /// </summary>
     /// <param name="bucketName">o nome do S3 bucket</param>
     /// <param name="files">arquivo(s) a serem enviados para o S3 bucket</param>
@@ -53,5 +52,43 @@ public class FilesController : ControllerBase
             return BadRequest(new { message = $"Unable to upload files to S3 bucket {bucketName}" });
 
         return Ok(response);
+    }
+
+    /// <summary>
+    /// Realiza o download do arquivo especificado no S3 bucket especificado
+    /// </summary>
+    /// <param name="bucketName">o nome do S3 bucket</param>
+    /// <param name="filename">nome do arquivo</param>
+    /// <returns></returns>
+    [HttpGet("{bucketName}/download/{filename}")]
+    public async Task<IActionResult> DownloadFileAsync(string bucketName, string filename) 
+    {
+        if (string.IsNullOrWhiteSpace(bucketName))
+            return BadRequest(new { message = "S3 Bucket name is required" });
+        if (string.IsNullOrWhiteSpace(filename))
+            return BadRequest(new { message = "File name is required" });
+
+        await _filesRepository.DownloadFileAsync(bucketName, filename);
+
+        return Ok(new { message = "Downloaded successfully" });
+    }
+
+    /// <summary>
+    /// Realiza a remoção do arquivo especificado no S3 bucket especificado
+    /// </summary>
+    /// <param name="bucketName">o nome do S3 bucket</param>
+    /// <param name="filename">nome do arquivo</param>
+    /// <returns></returns>
+    [HttpDelete("{bucketName}/{filename}")]
+    public async Task<IActionResult> DeleteFileAsync(string bucketName, string filename)
+    {
+        if (string.IsNullOrWhiteSpace(bucketName))
+            return BadRequest(new { message = "S3 Bucket name is required" });
+        if (string.IsNullOrWhiteSpace(filename))
+            return BadRequest(new { message = "File name is required" });
+
+        await _filesRepository.DeleteFileAsync(bucketName, filename);
+
+        return Ok(new { message = "File deleted successfully" });
     }
 }

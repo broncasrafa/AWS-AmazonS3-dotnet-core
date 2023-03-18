@@ -59,4 +59,18 @@ public class FilesRepository : IFilesRepository
 
         return new AddFileResponse(bucketName, preSignedUrls);
     }
+
+    public async Task DownloadFileAsync(string bucketName, string filename)
+    {
+        string pathToSave = @"C:\Users\bronc\OneDrive\Área de Trabalho\aws";
+        var request = new TransferUtilityDownloadRequest
+        {
+            BucketName = bucketName,
+            Key = filename,
+            FilePath = pathToSave
+        };
+
+        using var transferUtility = new TransferUtility(_amazonS3Client);
+        await transferUtility.DownloadAsync(request);
+    }
 }
